@@ -1,7 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaFilePdf, FaDownload } from "react-icons/fa";
+import {axiosInstance} from "../util/axios";
 
 const DocumentLibrary = () => {
+
+  // useEffect(() => {
+  //   first
+  
+  // }, [])
+
+  const getDocumnents = async () => {
+
+    try {
+      const resp = await axiosInstance.get('/doc/all-documents')
+      console.log(resp.data)
+    } catch (error) {
+      console.error("Error al recuperar los documentos:", error);
+      
+    }
+  
+  }
+  
+
+
   const [documents] = useState([
     {
       id: 1,
@@ -96,7 +117,7 @@ const DocumentLibrary = () => {
               </tbody>
             </table>
           </div>
-
+          {/* Mobile view start */}      
           <div className="md:hidden">
             <div className="divide-y divide-gray-200">
               {documents.map((doc) => (
@@ -119,6 +140,7 @@ const DocumentLibrary = () => {
               ))}
             </div>
           </div>
+          {/* Mobile view ends*/}      
         </div>
       </div>
     </div>
